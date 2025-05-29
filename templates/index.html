@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IELTS Writing Feedback</title>
+</head>
+<body>
+    <h1>IELTS Writing Feedback App</h1>
+
+    <form method="post">
+        <label for="task_type">Task Type:</label>
+        <select name="task_type" id="task_type">
+            <option value="Academic">Academic</option>
+            <option value="General">General</option>
+        </select><br><br>
+
+        <label for="task_number">Task Number:</label>
+        <select name="task_number" id="task_number">
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select><br><br>
+
+        <label for="prompt_text">Prompt:</label><br>
+        <textarea name="prompt_text" id="prompt_text" rows="4" cols="60">Describe the chart below.</textarea><br><br>
+
+        <label for="writing">Your Writing:</label><br>
+        <textarea name="writing" id="writing" rows="10" cols="60">{{ writing }}</textarea><br><br>
+
+        <input type="submit" value="Get Feedback">
+    </form>
+
+    {% if result %}
+        <h2>Feedback:</h2>
+        <pre>{{ result }}</pre>
+    {% endif %}
+</body>
+</html>
