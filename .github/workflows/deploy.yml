@@ -1,0 +1,16 @@
+name: Deploy to Render
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to Render
+        uses: render/render-action@v3
+        with:
+          type: web
+          service-id: srv-d0rshjh5pdvs738v8b70
+          branch: main

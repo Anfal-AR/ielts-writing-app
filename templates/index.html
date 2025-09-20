@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Practice & Feedback Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+<header>
+    <img src="{{ url_for('static', filename='images/SparkSkyTech.png') }}" alt="SparkSkyTech Logo" width="200">
+    <h1>IELTS Writing Practice & Feedback Hub</h1>
+</header>
+
+<!-- FREE Banner -->
+<div style="background: #667eea; color: white; text-align: center; padding: 15px; margin: 20px 0;">
+    <strong>🎉 This tool is 100% FREE — no payment or subscription required!</strong>
+</div>
+
+<form method="post">
+    <label for="task_type">Task Type:</label><br>
+    <select name="task_type" id="task_type">
+        <option value="Academic">Academic</option>
+        <option value="General">General</option>
+    </select><br><br>
+
+    <label for="task_number">Task Number:</label><br>
+    <select name="task_number" id="task_number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select><br><br>
+
+    <!-- Prompt Selection Dropdown -->
+    <label for="prompt_select">Choose a Task 2 Prompt (optional):</label><br>
+    <select name="prompt_select" id="prompt_select" onchange="updatePrompt(this.value)">
+        <option value="">Select a prompt...</option>
+        {% for prompt in prompts %}
+            <option value="{{ prompt.prompt }}">{{ prompt.title }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="prompt_text">Prompt:</label><br>
+    <textarea name="prompt_text" id="prompt_text" rows="4" cols="50">{{ prompt_text or "Describe the chart below." }}</textarea><br><br>
+
+    <label for="writing">Your Writing:</label><br>
+    <textarea name="writing" id="writing" rows="10" cols="50">{{ writing }}</textarea><br><br>
+
+    <input type="submit" value="Get Feedback">
+</form>
+
+{% if result %}
+    <pre>{{ result }}</pre>
+
+    <!-- Download Feedback as PDF -->
+    <form method="post" action="/download">
+        <input type="hidden" name="result" value="{{ result }}">
+        <input type="hidden" name="prompt_text" value="{{ prompt_text }}">
+        <input type="hidden" name="writing" value="{{ writing }}">
+        <input type="hidden" name="task_type" value="{{ task_type }}">
+        <input type="hidden" name="task_number" value="{{ task_number }}">
+
+        <button type="submit">📄 Download Feedback as PDF</button>
+    </form>
+
+    <!-- Progress Tracking Section -->
+    {% if progress %}
+    <div id="progress-section" style="margin-top: 30px; padding: 20px; background: #f0f4ff; border-radius: 10px; border-left: 4px solid #667eea;">
+        <h3>📊 Your Writing Progress</h3>
+        <p><strong>Total Attempts:</strong> {{ progress.attempts }}</p>
+        <p><strong>Best Score:</strong> {{ "%.1f"|format(progress.best_score) }}</p>
+        <p><strong>Average Score:</strong> {{ "%.1f"|format(progress.avg_score) }}</p>
+        <p><strong>Task 1 Attempts:</strong> {{ progress.task_1_attempts }}</p>
+        <p><strong>Task 2 Attempts:</strong> {{ progress.task_2_attempts }}</p>
+        <p><strong>Academic Tasks:</strong> {{ progress.academic_attempts }}</p>
+        <p><strong>General Tasks:</strong> {{ progress.general_attempts }}</p>
+        <button onclick="resetProgress()" style="padding: 8px 16px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; margin-top: 10px;">Reset Progress</button>
+    </div>
+    {% endif %}
+
+    <!-- Want More Practice Section -->
+    <div class="more-practice">
+        <h2>📘 Want More Practice?</h2>
+        <p>Try one of our top IELTS Writing Task 2 prompts:</p>
+
+        <form method="post" onsubmit="document.getElementById('prompt_text').value = document.getElementById('prompt_select').value; return true;">
+            <label for="prompt_select">Choose a prompt:</label><br>
+            <select name="prompt_select" id="prompt_select" onchange="updatePrompt(this.value)">
+                <option value="">Select a prompt...</option>
+                {% for prompt in prompts %}
+                    <option value="{{ prompt.prompt }}">{{ prompt.title }}</option>
+                {% endfor %}
+            </select><br><br>
+            <input type="submit" value="Use This Prompt">
+        </form>
+
+        <p style="margin-top: 10px;"><small>💡 Tip: These prompts appear frequently in recent IELTS exams!</small></p>
+    </div>
+{% endif %}
+
+<!-- YouTube Video Embed -->
+<div class="video-section">
+    <h2>📺 IELTS Writing Tips – Watch & Learn</h2>
+    <p>Want to improve your writing skills? Watch a short lesson on how to structure high-scoring essays:</p>
+
+    <div class="video-wrapper">
+        <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/dE1dfha0vhk"
+                title="IELTS Writing Task 2 - Band 8+ Essay Structure"
+                frameborder="0"
+                allowfullscreen></iframe>
+    </div>
+
+    <p style="margin-top: 20px;">
+        Want more help with all parts of IELTS?  
+        🔗 <a href="https://www.youtube.com/watch?v=_Te3zfFW2ZU&list=PLaSmN7qMfXNQBOpbO2P6l9kDU4p0tRQDs" target="_blank">IELTS Full Preparation Playlist</a>
+    </p>
+</div>
+
+<!-- Comprehensive Footer -->
+<footer style="text-align: center; margin-top: 50px; padding: 20px; background: #1a1a1a; color: white; font-size: 12px;">
+  <div style="margin-bottom: 10px;">
+    <h3 style="color: #667eea; margin: 0;">Comprehensive IELTS Resources by SparkSkyTech</h3>
+  </div>
+
+  <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 20px 0;">
+    <!-- Listening Skills -->
+    <div style="background: #ff6b6b; padding: 10px; border-radius: 8px; width: 180px;">
+      <h4 style="margin: 0; color: white;">Listening Skills</h4>
+      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
+        <li><a href="https://www.britishcouncil.org/ielts/listening" style="color: #fff; text-decoration: none;">IELTS Listening Preparation</a></li>
+        <li><a href="https://www.ielts.org/test_takers/prepare/listening" style="color: #fff; text-decoration: none;">Official IELTS Listening Format</a></li>
+        <li><a href="https://learnenglish.britishcouncil.org/skills/listening" style="color: #fff; text-decoration: none;">British Council Practice Tests</a></li>
+      </ul>
+    </div>
+
+    <!-- Reading Skills -->
+    <div style="background: #4ecdc4; padding: 10px; border-radius: 8px; width: 180px;">
+      <h4 style="margin: 0; color: white;">Reading Skills</h4>
+      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
+        <li><a href="https://www.ielts.org/test_takers/prepare/reading" style="color: #fff; text-decoration: none;">IELTS Reading Strategy</a></li>
+        <li><a href="https://www.ielts.org/test_takers/prepare/reading" style="color: #fff; text-decoration: none;">Official Reading Format</a></li>
+        <li><a href="https://ieltsliz.com/ielts-reading/" style="color: #fff; text-decoration: none;">IELTS Liz Reading Tips</a></li>
+      </ul>
+    </div>
+
+    <!-- Writing Skills -->
+    <div style="background: #5c6bc0; padding: 10px; border-radius: 8px; width: 180px;">
+      <h4 style="margin: 0; color: white;">Writing Skills</h4>
+      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
+        <li><a href="https://www.ielts.org/test_takers/prepare/writing" style="color: #fff; text-decoration: none;">IELTS Writing Preparation</a></li>
+        <li><a href="https://www.ielts.org/test_takers/prepare/writing" style="color: #fff; text-decoration: none;">Official Writing Guidelines</a></li>
+        <li><a href="https://www.youtube.com/@SparkSkyTech" style="color: #fff; text-decoration: none;">IELTS Writing Podcast</a></li>
+      </ul>
+    </div>
+
+    <!-- Speaking Skills -->
+    <div style="background: #f9c80e; padding: 10px; border-radius: 8px; width: 180px;">
+      <h4 style="margin: 0; color: white;">Speaking Skills</h4>
+      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
+        <li><a href="https://www.ielts.org/test_takers/prepare/speaking" style="color: #fff; text-decoration: none;">IELTS Speaking Practice</a></li>
+        <li><a href="https://www.ielts.org/test_takers/prepare/speaking" style="color: #fff; text-decoration: none;">Official Speaking Format</a></li>
+        <li><a href="https://www.youtube.com/@SparkSkyTech" style="color: #fff; text-decoration: none;">IELTS Speaking YouTube</a></li>
+      </ul>
+    </div>
+
+    <!-- Free Resources & Tools -->
+    <div style="background: #2ecc71; padding: 10px; border-radius: 8px; width: 180px;">
+      <h4 style="margin: 0; color: white;">Free Resources & Tools</h4>
+      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
+        <li><a href="https://www.sparkskytech.com/free-resources" style="color: #fff; text-decoration: none;">Free IELTS Resources</a></li>
+        <li><a href="https://www.sparkskytech.com/shop/learning-education/ielts-mastery-hub" style="color: #fff; text-decoration: none;">Educational Digital Products</a></li>
+        <li><a href="https://www.sparkskytech.com/free-practice-tests" style="color: #fff; text-decoration: none;">Free Practice Tests</a></li>
+      </ul>
+    </div>
+
+    <!-- IELTS Blog & Tips -->
+    <div style="background: #e67e22; padding: 10px; border-radius: 8px; width: 180px;">
+      <h4 style="margin: 0; color: white;">IELTS Blog & Tips</h4>
+      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
+        <li><a href="https://www.sparkskytech.com/blog" style="color: #fff; text-decoration: none;">Latest IELTS Blog Posts</a></li>
+        <li><a href="https://www.sparkskytech.com/ielts-main-hub" style="color: #fff; text-decoration: none;">IELTS Main Hub</a></li>
+        <li><a href="https://www.sparkskytech.com/ielts-advantage-blog" style="color: #fff; text-decoration: none;">IELTS Advantage Blog</a></li>
+      </ul>
+    </div>
+
+    <!-- Official IELTS Resources -->
+    <div style="background: #2c3e50; padding: 10px; border-radius: 8px; width: 180px;">
+      <h4 style="margin: 0; color: white;">Official IELTS Resources</h4>
+      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
+        <li><a href="https://www.ielts.org/" style="color: #fff; text-decoration: none;">Official IELTS Website</a></li>
+        <li><a href="https://learnenglish.britishcouncil.org/" style="color: #fff; text-decoration: none;">British Council IELTS</a></li>
+        <li><a href="https://www.ieltsidpindia.com/" style="color: #fff; text-decoration: none;">IDP IELTS</a></li>
+      </ul>
+    </div>
+
+    <!-- Vocabulary & Grammar -->
+    <div style="background: #9b59b6; padding: 10px; border-radius: 8px; width: 180px;">
+      <h4 style="margin: 0; color: white;">Vocabulary & Grammar</h4>
+      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
+        <li><a href="https://www.sparkskytech.com/vocabulary-builder" style="color: #fff; text-decoration: none;">IELTS Vocabulary Building</a></li>
+        <li><a href="https://www.sparkskytech.com/grammar-essentials" style="color: #fff; text-decoration: none;">IELTS Grammar Essentials</a></li>
+        <li><a href="https://www.cambridge.org/elt/ielts/" style="color: #fff; text-decoration: none;">Cambridge Vocabulary</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="border-top: 1px solid #444; padding-top: 15px; margin-top: 20px; color: #aaa;">
+    <p>© 2025 Spark Sky Tech — Made with ❤️ for Learners</p>
+    <p>
+      <a href="https://www.sparkskytech.com/free-ielts-materials" style="color: #667eea; text-decoration: none;">Free IELTS Materials</a> | 
+      <a href="https://www.sparkskytech.com/shop/ielts-tools" style="color: #667eea; text-decoration: none;">Shop IELTS Tools</a> | 
+      <a href="https://www.youtube.com/@SparkSkyTech" style="color: #667eea; text-decoration: none;">YouTube Channel</a> | 
+      <a href="https://facebook.com/groups/sparkskytechielts" style="color: #667eea; text-decoration: none;">Facebook Group</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+function updatePrompt(value) {
+    const selectedPrompt = document.getElementById("prompt_select").value;
+    document.getElementById("prompt_text").value = selectedPrompt;
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+}
+
+// Reset Progress via AJAX
+function resetProgress() {
+    if (confirm("Are you sure you want to reset your progress?")) {
+        fetch("/reset_progress", { method: "GET" })
+            .then(response => response.json())
+            .then(data => {
+                alert("Progress reset successfully!");
+                location.reload();
+            })
+            .catch(err => console.error("Error:", err));
+    }
+}
+
+// Load saved preference
+window.addEventListener("DOMContentLoaded", () => {
+    const darkMode = localStorage.getItem("darkMode") === "true";
+    if (darkMode) {
+        document.body.classList.add("dark-mode");
+    }
+});
+</script>
+
+</body>
+</html>
