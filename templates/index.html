@@ -54,6 +54,22 @@
 
 {% if result %}
     <pre>{{ result }}</pre>
+    <!-- Progress Tracking Section -->
+    {% if progress %}
+    <div class="progress-section" style="margin-top: 25px; padding: 20px; background: #f0f4ff; border-radius: 10px; border-left: 4px solid #667eea; font-size: 14px; line-height: 1.6;">
+        <h3 style="margin: 0 0 15px 0; color: #333;">📊 Your Writing Progress</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <p><strong>Total Attempts:</strong> {{ progress.attempts }}</p>
+            <p><strong>Best Score:</strong> {{ "%.1f"|format(progress.best_score) }}</p>
+            <p><strong>Average Score:</strong> {{ "%.1f"|format(progress.avg_score) }}</p>
+            <p><strong>Task 1 Attempts:</strong> {{ progress.task_1_attempts }}</p>
+            <p><strong>Task 2 Attempts:</strong> {{ progress.task_2_attempts }}</p>
+            <p><strong>Academic Tasks:</strong> {{ progress.academic_attempts }}</p>
+            <p><strong>General Tasks:</strong> {{ progress.general_attempts }}</p>
+        </div>
+        <button onclick="resetProgress()" style="padding: 8px 16px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; margin-top: 12px; width: 120px;">Reset Progress</button>
+    </div>
+    {% endif %}
 
     <!-- Download Feedback as PDF -->
     <form method="post" action="/download">
@@ -65,21 +81,6 @@
 
         <button type="submit">📄 Download Feedback as PDF</button>
     </form>
-
-    <!-- Progress Tracking Section -->
-    {% if progress %}
-    <div id="progress-section" style="margin-top: 30px; padding: 20px; background: #f0f4ff; border-radius: 10px; border-left: 4px solid #667eea;">
-        <h3>📊 Your Writing Progress</h3>
-        <p><strong>Total Attempts:</strong> {{ progress.attempts }}</p>
-        <p><strong>Best Score:</strong> {{ "%.1f"|format(progress.best_score) }}</p>
-        <p><strong>Average Score:</strong> {{ "%.1f"|format(progress.avg_score) }}</p>
-        <p><strong>Task 1 Attempts:</strong> {{ progress.task_1_attempts }}</p>
-        <p><strong>Task 2 Attempts:</strong> {{ progress.task_2_attempts }}</p>
-        <p><strong>Academic Tasks:</strong> {{ progress.academic_attempts }}</p>
-        <p><strong>General Tasks:</strong> {{ progress.general_attempts }}</p>
-        <button onclick="resetProgress()" style="padding: 8px 16px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; margin-top: 10px;">Reset Progress</button>
-    </div>
-    {% endif %}
 
     <!-- Want More Practice Section -->
     <div class="more-practice">
@@ -120,103 +121,117 @@
     </p>
 </div>
 
+
 <!-- Comprehensive Footer -->
-<footer style="text-align: center; margin-top: 50px; padding: 20px; background: #1a1a1a; color: white; font-size: 12px;">
-  <div style="margin-bottom: 10px;">
-    <h3 style="color: #667eea; margin: 0;">Comprehensive IELTS Resources by SparkSkyTech</h3>
-  </div>
+<footer class="comprehensive-footer">
+    <div class="footer-content">
+        <div class="footer-grid">
+            <!-- Listening Skills -->
+            <div class="footer-section">
+                <h3>🎧 Listening Skills</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.sparkskytech.com/ielts/ielts-listening"><span class="link-icon">📚</span>IELTS Listening Preparation</a></li>
+                    <li><a href="https://learnenglish.britishcouncil.org/skills/listening" target="_blank"><span class="link-icon">🌐</span>Official IELTS Listening Format</a></li>
+                    <li><a href="https://www.bbc.co.uk/sounds" target="_blank"><span class="link-icon">📻</span>BBC Sounds Practice</a></li>
+                </ul>
+            </div>
 
-  <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 20px 0;">
-    <!-- Listening Skills -->
-    <div style="background: #ff6b6b; padding: 10px; border-radius: 8px; width: 180px;">
-      <h4 style="margin: 0; color: white;">Listening Skills</h4>
-      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
-        <li><a href="https://www.britishcouncil.org/ielts/listening" style="color: #fff; text-decoration: none;">IELTS Listening Preparation</a></li>
-        <li><a href="https://www.ielts.org/test_takers/prepare/listening" style="color: #fff; text-decoration: none;">Official IELTS Listening Format</a></li>
-        <li><a href="https://learnenglish.britishcouncil.org/skills/listening" style="color: #fff; text-decoration: none;">British Council Practice Tests</a></li>
-      </ul>
+            <!-- Reading Skills -->
+            <div class="footer-section">
+                <h3>📖 Reading Skills</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.sparkskytech.com/ielts/ielts-reading"><span class="link-icon">📚</span>IELTS Reading Strategies</a></li>
+                    <li><a href="https://www.bbc.com/news" target="_blank"><span class="link-icon">📰</span>BBC News Reading</a></li>
+                    <li><a href="https://www.nationalgeographic.com/" target="_blank"><span class="link-icon">🌍</span>National Geographic</a></li>
+                </ul>
+            </div>
+
+            <!-- Writing Skills -->
+            <div class="footer-section">
+                <h3>✍️ Writing Skills</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.sparkskytech.com/ielts/ielts-writing-preparation"><span class="link-icon">📝</span>IELTS Writing Preparation</a></li>
+                    <li><a href="https://ieltsliz.com/ielts-writing-task-2/" target="_blank"><span class="link-icon">🎯</span>IELTS Writing Task 2 Practice</a></li>
+                    <li><a href="https://www.grammarly.com/blog/" target="_blank"><span class="link-icon">📖</span>Grammarly Writing Tips</a></li>
+                </ul>
+            </div>
+
+            <!-- Speaking Skills -->
+            <div class="footer-section">
+                <h3>🗣️ Speaking Skills</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.sparkskytech.com/ielts/ielts-speaking"><span class="link-icon">🎤</span>IELTS Speaking Practice</a></li>
+                    <li><a href="https://www.elllo.org/" target="_blank"><span class="link-icon">🎧</span>ELLLO - English Listening</a></li>
+                    <li><a href="https://www.ted.com/talks" target="_blank"><span class="link-icon">💡</span>TED Talks</a></li>
+                </ul>
+            </div>
+
+            <!-- Free Resources & Tools -->
+            <div class="footer-section">
+                <h3>🔧 Free Resources & Tools</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.sparkskytech.com/ielts/ielts_free_resources"><span class="link-icon">🆓</span>Free IELTS Resources</a></li>
+                    <li><a href="https://www.sparkskytech.com/shop/learning-education"><span class="link-icon">🛒</span>Educational Digital Products</a></li>
+                    <li><a href="https://www.sparkskytech.com/apps/ielts-study-plan-generator"><span class="link-icon">📱</span>Study Plan Generator</a></li>
+                </ul>
+            </div>
+
+            <!-- IELTS Blog & Tips -->
+            <div class="footer-section">
+                <h3>📰 IELTS Blog & Tips</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.sparkskytech.com/blog/ielts_blogs"><span class="link-icon">📝</span>Latest IELTS Blog Posts</a></li>
+                    <li><a href="https://www.sparkskytech.com/ielts"><span class="link-icon">🏠</span>IELTS Main Hub</a></li>
+                    <li><a href="https://www.youtube.com/@SparkSkyTech" target="_blank"><span class="link-icon">📺</span>YouTube Channel</a></li>
+                </ul>
+            </div>
+
+            <!-- Official IELTS Resources -->
+            <div class="footer-section">
+                <h3>🏛️ Official IELTS Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.ielts.org/" target="_blank"><span class="link-icon">🌐</span>Official IELTS Website</a></li>
+                    <li><a href="https://www.britishcouncil.org/exam/ielts" target="_blank"><span class="link-icon">🏛️</span>British Council IELTS</a></li>
+                    <li><a href="https://www.cambridge.org/elt/" target="_blank"><span class="link-icon">📚</span>Cambridge English</a></li>
+                </ul>
+            </div>
+
+            <!-- Vocabulary & Grammar -->
+            <div class="footer-section">
+                <h3>📚 Vocabulary & Grammar</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.sparkskytech.com/ielts/ielts-vocabulary"><span class="link-icon">📝</span>IELTS Vocabulary Building</a></li>
+                    <li><a href="https://www.sparkskytech.com/ielts/ielts-grammar"><span class="link-icon">⚡</span>IELTS Grammar Essentials</a></li>
+                    <li><a href="https://www.oxfordlearnersdictionaries.com/" target="_blank"><span class="link-icon">📖</span>Oxford Learner's Dictionary</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-links">
+            <a href="https://www.youtube.com/@SparkSkyTech" target="_blank" title="YouTube">📺</a>
+            <a href="https://github.com/Anfal-AR" target="_blank" title="GitHub">💻</a>
+            <a href="#" title="LinkedIn">💼</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="Email">✉️</a>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-logo">SparkSkyTech</div>
+            <p><strong>© 2025 SparkSkyTech — Made with ❤️ for Learners</strong></p>
+            <p style="margin: 15px 0;">
+                <a href="https://www.sparkskytech.com/ielts/ielts_free_resources" style="color: #3498db;">Free IELTS Materials</a> | 
+                <a href="https://www.sparkskytech.com/shop/learning-education" style="color: #3498db;">Shop IELTS Tools</a> | 
+                <a href="https://www.youtube.com/@SparkSkyTech" target="_blank" style="color: #3498db;">YouTube Channel</a> | 
+                <a href="https://www.sparkskytech.com/blog/ielts_blogs" style="color: #3498db;">IELTS Blogs</a>
+            </p>
+            <p style="font-size: 14px; color: #95a5a6;">
+                This IELTS Writing Practice App is completely free and part of our commitment to accessible education worldwide.
+                <br>Helping students achieve their dreams through quality IELTS preparation.
+            </p>
+        </div>
     </div>
-
-    <!-- Reading Skills -->
-    <div style="background: #4ecdc4; padding: 10px; border-radius: 8px; width: 180px;">
-      <h4 style="margin: 0; color: white;">Reading Skills</h4>
-      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
-        <li><a href="https://www.ielts.org/test_takers/prepare/reading" style="color: #fff; text-decoration: none;">IELTS Reading Strategy</a></li>
-        <li><a href="https://www.ielts.org/test_takers/prepare/reading" style="color: #fff; text-decoration: none;">Official Reading Format</a></li>
-        <li><a href="https://ieltsliz.com/ielts-reading/" style="color: #fff; text-decoration: none;">IELTS Liz Reading Tips</a></li>
-      </ul>
-    </div>
-
-    <!-- Writing Skills -->
-    <div style="background: #5c6bc0; padding: 10px; border-radius: 8px; width: 180px;">
-      <h4 style="margin: 0; color: white;">Writing Skills</h4>
-      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
-        <li><a href="https://www.ielts.org/test_takers/prepare/writing" style="color: #fff; text-decoration: none;">IELTS Writing Preparation</a></li>
-        <li><a href="https://www.ielts.org/test_takers/prepare/writing" style="color: #fff; text-decoration: none;">Official Writing Guidelines</a></li>
-        <li><a href="https://www.youtube.com/@SparkSkyTech" style="color: #fff; text-decoration: none;">IELTS Writing Podcast</a></li>
-      </ul>
-    </div>
-
-    <!-- Speaking Skills -->
-    <div style="background: #f9c80e; padding: 10px; border-radius: 8px; width: 180px;">
-      <h4 style="margin: 0; color: white;">Speaking Skills</h4>
-      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
-        <li><a href="https://www.ielts.org/test_takers/prepare/speaking" style="color: #fff; text-decoration: none;">IELTS Speaking Practice</a></li>
-        <li><a href="https://www.ielts.org/test_takers/prepare/speaking" style="color: #fff; text-decoration: none;">Official Speaking Format</a></li>
-        <li><a href="https://www.youtube.com/@SparkSkyTech" style="color: #fff; text-decoration: none;">IELTS Speaking YouTube</a></li>
-      </ul>
-    </div>
-
-    <!-- Free Resources & Tools -->
-    <div style="background: #2ecc71; padding: 10px; border-radius: 8px; width: 180px;">
-      <h4 style="margin: 0; color: white;">Free Resources & Tools</h4>
-      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
-        <li><a href="https://www.sparkskytech.com/free-resources" style="color: #fff; text-decoration: none;">Free IELTS Resources</a></li>
-        <li><a href="https://www.sparkskytech.com/shop/learning-education/ielts-mastery-hub" style="color: #fff; text-decoration: none;">Educational Digital Products</a></li>
-        <li><a href="https://www.sparkskytech.com/free-practice-tests" style="color: #fff; text-decoration: none;">Free Practice Tests</a></li>
-      </ul>
-    </div>
-
-    <!-- IELTS Blog & Tips -->
-    <div style="background: #e67e22; padding: 10px; border-radius: 8px; width: 180px;">
-      <h4 style="margin: 0; color: white;">IELTS Blog & Tips</h4>
-      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
-        <li><a href="https://www.sparkskytech.com/blog" style="color: #fff; text-decoration: none;">Latest IELTS Blog Posts</a></li>
-        <li><a href="https://www.sparkskytech.com/ielts-main-hub" style="color: #fff; text-decoration: none;">IELTS Main Hub</a></li>
-        <li><a href="https://www.sparkskytech.com/ielts-advantage-blog" style="color: #fff; text-decoration: none;">IELTS Advantage Blog</a></li>
-      </ul>
-    </div>
-
-    <!-- Official IELTS Resources -->
-    <div style="background: #2c3e50; padding: 10px; border-radius: 8px; width: 180px;">
-      <h4 style="margin: 0; color: white;">Official IELTS Resources</h4>
-      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
-        <li><a href="https://www.ielts.org/" style="color: #fff; text-decoration: none;">Official IELTS Website</a></li>
-        <li><a href="https://learnenglish.britishcouncil.org/" style="color: #fff; text-decoration: none;">British Council IELTS</a></li>
-        <li><a href="https://www.ieltsidpindia.com/" style="color: #fff; text-decoration: none;">IDP IELTS</a></li>
-      </ul>
-    </div>
-
-    <!-- Vocabulary & Grammar -->
-    <div style="background: #9b59b6; padding: 10px; border-radius: 8px; width: 180px;">
-      <h4 style="margin: 0; color: white;">Vocabulary & Grammar</h4>
-      <ul style="list-style: none; padding: 5px 0; margin: 5px 0;">
-        <li><a href="https://www.sparkskytech.com/vocabulary-builder" style="color: #fff; text-decoration: none;">IELTS Vocabulary Building</a></li>
-        <li><a href="https://www.sparkskytech.com/grammar-essentials" style="color: #fff; text-decoration: none;">IELTS Grammar Essentials</a></li>
-        <li><a href="https://www.cambridge.org/elt/ielts/" style="color: #fff; text-decoration: none;">Cambridge Vocabulary</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div style="border-top: 1px solid #444; padding-top: 15px; margin-top: 20px; color: #aaa;">
-    <p>© 2025 Spark Sky Tech — Made with ❤️ for Learners</p>
-    <p>
-      <a href="https://www.sparkskytech.com/free-ielts-materials" style="color: #667eea; text-decoration: none;">Free IELTS Materials</a> | 
-      <a href="https://www.sparkskytech.com/shop/ielts-tools" style="color: #667eea; text-decoration: none;">Shop IELTS Tools</a> | 
-      <a href="https://www.youtube.com/@SparkSkyTech" style="color: #667eea; text-decoration: none;">YouTube Channel</a> | 
-      <a href="https://facebook.com/groups/sparkskytechielts" style="color: #667eea; text-decoration: none;">Facebook Group</a>
-    </p>
-  </div>
 </footer>
 
 <script>

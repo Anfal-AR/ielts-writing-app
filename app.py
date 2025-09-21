@@ -122,11 +122,16 @@ Model Answer:
 [full model answer here - write a complete, high-scoring response of appropriate length]
 
 📚 Useful Resources:
-📘 British Council Writing Tips: https://learnenglish.britishcouncil.org/skills/writing
-📝 IDP IELTS Writing Guide: https://www.ieltsidpindia.com/information/prepare-for-ielts/ielts-writing
-🎯 IELTS Liz Task 2 Practice: https://ieltsliz.com/ielts-writing-task-2/
-🧠 IELTS Mastery Hub: https://www.sparkskytech.com/shop/learning-education/ielts-mastery-hub
-📺 SparkSkyTech YouTube: https://www.youtube.com/@SparkSkyTech
+📌 Official IELTS Info: https://www.ielts.org
+📘 British Council – Skills Practice: https://learnenglish.britishcouncil.org/skills
+📝 IDP IELTS Guides: https://www.ieltsidpindia.com/information/prepare-for-ielts
+🎯 IELTS Liz – Expert Tips: https://ieltsliz.com
+📘 SparkSkyTech IELTS Hub: https://www.sparkskytech.com/ielts
+📱 IELTS Study Plan Generator (Free App): https://www.sparkskytech.com/apps/ielts-study-plan-generator
+📄 Free Model Answers: https://www.sparkskytech.com/ielts/ielts-free-resources
+🎥 Watch Video Lessons: https://www.youtube.com/@SparkSkyTech
+🛒 Digital Study Tools: https://www.sparkskytech.com/shop/learning-education  
+
 """
 
     try:
